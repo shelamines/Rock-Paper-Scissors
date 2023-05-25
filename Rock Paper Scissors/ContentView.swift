@@ -15,102 +15,127 @@ enum GameResult: String, CaseIterable {
 }
 
 struct ContentView: View {
+    @State var isFinished : Bool = false
     @State private var result: String = ""
     @State private var timerValue = 0
     @State var score = 0
     @State var round = 0
+    @State var lastMS = 0
     @State var winner: GameResult = .draw
     @State var isShow: Bool = false
+    @State var point : String = "+1"
     let sceneView = SCNView()
-    let timer = Timer.publish(every: 0.01, on: .main, in: .common)
+    let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+    
     
     @State var winningCondition: WinningConditions? = nil
     @State var randomSign: GameResult?
     
     var body: some View {
-        ZStack {
-            if !isShow {
-                VStack {
-                    Group {
+        if isFinished {
+            scoreView(score: $score, isFinished: $isFinished)
+        } else {
+            ZStack {
+                if !isShow {
+                    VStack {
+                        Group {
+                            HStack {
+                                Text("\(formatTime(timerValue))ms")
+                                    .font(.largeTitle)
+                                    .fontWeight(.black)
+                                    .padding(10)
+                                    .background(Color.green)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                    .padding(.top, 20)
+                                    .padding(.leading, 20)
+                                
+                                Spacer()
+                                
+                                Text("\(score) pt")
+                                    .font(.largeTitle)
+                                    .fontWeight(.black)
+                                    .padding(10)
+                                    .background(Color.green)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                    .padding(.top, 20)
+                                    .padding(.leading, 20)
+                                
+                                Spacer()
+                            }
+                            Spacer()
+                            
+                            HStack {
+                                self.winningCondition?.object1
+                                self.winningCondition?.object2
+                            }
+                            Spacer().frame(width: 50)
+                        }
+                        
+                        
                         HStack {
-                            Text("\(formatTime(timerValue)) ms")
-                                .font(.largeTitle)
-                                .fontWeight(.black)
-                                .padding(10)
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .padding(.top, 20)
-                                .padding(.leading, 20)
+                            Spacer()
+                            
+                            CustomButton(action: {
+                                handleResultButtonPressed(userSelection: .leftWins)
+                                
+                            }, label: "Left Wins", color: .red, padding: EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
                             
                             Spacer()
                             
-                            Text("\(score) pt")
-                                .font(.largeTitle)
-                                .fontWeight(.black)
-                                .padding(10)
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .padding(.top, 20)
-                                .padding(.leading, 20)
+                            CustomButton(action: {
+                                handleResultButtonPressed(userSelection: .draw)
+                                
+                            }, label: "Draw", color: .yellow, padding: EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
                             
                             Spacer()
                             
-                            //                    Text(winningCondition?.object2 ?? "")
+                            CustomButton(action: {
+                                handleResultButtonPressed(userSelection: .rightWins)
+                                
+                            }, label: "Right Wins", color: .blue, padding: EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
+                            
+                            Spacer()
                         }
-                        Spacer()
-                        
-                        HStack {
-                            self.winningCondition?.object1
-                            self.winningCondition?.object2
-                        }
-                        
-                        //                    SceneKitView(modelName: "RockModel")
-                        //                        .frame(width: 200, height: 350)
-                        //
-                        //                    SceneKitView(modelName: "Scissors")
-                        //                        .frame(width: 200, height: 350)
-                        //                }
-                        
-                        Spacer().frame(width: 50)
                     }
-                    
-                    
-                    HStack {
-                        Spacer()
-                        
-                        CustomButton(action: {
-                            handleResultButtonPressed(userSelection: .leftWins)
-                        }, label: "Left Wins", color: .red, padding: EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
-                        
-                        Spacer()
-                        
-                        CustomButton(action: {
-                            handleResultButtonPressed(userSelection: .draw)
-                        }, label: "Draw", color: .yellow, padding: EdgeInsets(top: 30, leading: 16, bottom: 30, trailing: 16))
-                        
-                        Spacer()
-                        
-                        CustomButton(action: {
-                            handleResultButtonPressed(userSelection: .rightWins)
-                        }, label: "Right Wins", color: .blue, padding: EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
-                        
-                        Spacer()
+                } else {
+                    ZStack {
+                        Color.white // Background color of the VStack
+                            .edgesIgnoringSafeArea(.all)
+                        VStack{
+                            
+                            HStack{
+                                Text("\(formatTime(lastMS))ms")
+                                    .font(.largeTitle)
+                                    .fontWeight(.black)
+                                    .padding(10)
+                                    .background(Color.green)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                    .padding(.top, 20)
+                                    .padding(.leading, 20)
+                                Text(point)
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                        //                .frame(height: 50)
+                        .padding(.top, 20)
+                        .padding(.leading, 16)
                     }
                 }
             }
-            
-            scoreView(score: score)
-        }
-        .onReceive(timer) { _ in
-            timerValue += 1
-        }
-        .onAppear {
-            winner = randomResult()
-        }
-        .onAppear {
-            startGame()
+            .onReceive(timer) { _ in
+                timerValue += 1
+            }
+            .onAppear {
+                winner = randomResult()
+            }
+            .onAppear {
+                startGame()
+            }
+            .background((!isShow) ? .white : .black)
         }
     }
     
@@ -121,16 +146,14 @@ struct ContentView: View {
     func randomResult() -> GameResult{
         let allResult = GameResult.allCases
         let randomSign = allResult.randomElement()!
-        //        animasi tangan siapa yang menang
         self.randomSign = randomSign
         gettingAsset()
-        print("random")
-//        timer.connect().cancel()
-        timerValue = 0
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//
-//            timer.connect()
-//        }
+        //        timer.connect().cancel()
+        //        timerValue = 0
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        //
+        //            timer.connect()
+        //        }
         return randomSign
     }
     
@@ -139,14 +162,16 @@ struct ContentView: View {
         //        let gameResult = simulateHandAnimations()
         // score calculation
         if round >= 10 {
-                // Game has finished
-                finishGame()
-            } else {
-                // Continue to the next round
-                round += 1
-                winner = randomResult()
-                timerValue = 0
-            }
+            // Game has finished
+            finishGame()
+        } else {
+            // Continue to the next round
+            round += 1
+            winner = randomResult()
+            lastMS = timerValue
+//            timerValue = 0
+        }
+        
         if gameResult == userSelection {
             print("You won")
         } else {
@@ -156,29 +181,36 @@ struct ContentView: View {
         case (.leftWins, .leftWins), (.rightWins, .rightWins), (.draw, .draw):
             if timerValue <= 300 {
                 score += 4
+                point = "+4"
+             
             } else {
                 score += 1
+                point = "+1"
+               
             }
         default:
             score -= 3
+            point = "-3"
+          
         }
         
         timerValue = 0
         winner = randomResult()
         
         isShow = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
             self.isShow = false
             gettingAsset()
+            timerValue = 0
         }
         
     }
-//    func randomResult2() -> String {
-//        let shuffledChoices = winningConditions.keys.shuffled()
-//        let randomChoice = shuffledChoices[0]
-//        return assetMapping[randomChoice] ?? ""
-//    }
-   
+    //    func randomResult2() -> String {
+    //        let shuffledChoices = winningConditions.keys.shuffled()
+    //        let randomChoice = shuffledChoices[0]
+    //        return assetMapping[randomChoice] ?? ""
+    //    }
+    
     func gettingAsset() {
         var chosenWinningCondition: [WinningConditions] = []
         for winningCondition in winningConditionsLists.lists {
@@ -196,7 +228,8 @@ struct ContentView: View {
         timerValue = 0
     }
     func finishGame() {
-        // Display game over message or perform any necessary actions
+        isFinished = true
+        timerValue = 0
         print("Game over!")
     }
     

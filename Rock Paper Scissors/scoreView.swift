@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct scoreView: View {
-    let score: Int
+    @Binding var score: Int
+    @Binding var isFinished : Bool
     var body: some View {
         VStack {
             Text("Score: \(score)")
@@ -17,6 +18,14 @@ struct scoreView: View {
             
             Text("Grade: \(grade(for: score))")
                 .font(.title)
+            
+            Button {
+                score = 0
+                isFinished = false
+            } label: {
+                Text("Play Again")
+            }
+
         }
     }
     
