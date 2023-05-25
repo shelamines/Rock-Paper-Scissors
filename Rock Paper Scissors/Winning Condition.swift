@@ -10,14 +10,14 @@ import Foundation
 class WinningConditions: Identifiable {
     var id = UUID()
     let result: GameResult
-    let object1: SceneKitView
-    let object2: SceneKitView
+    let left: SceneKitView
+    let right: SceneKitView
     
-    init(result: GameResult, object1: SceneKitView, object2: SceneKitView) {
+    init(result: GameResult, left: SceneKitView, right: SceneKitView) {
         self.id = UUID()
         self.result = result
-        self.object1 = object1
-        self.object2 = object2
+        self.left = left
+        self.right = right
     }
 }
 
@@ -25,48 +25,48 @@ struct winningConditionsLists {
     static let lists: [WinningConditions] = [
         WinningConditions(
             result: .leftWins,
-            object1: SceneKitView(modelName: "RockModel"),
-            object2: SceneKitView(modelName: "Scissors-2")
+            left: SceneKitView(modelName: "RockModel"),
+            right: SceneKitView(modelName: "Scissors-2")
         ),
         WinningConditions(
             result: .leftWins,
-            object1: SceneKitView(modelName: "Scissors-2"),
-            object2: SceneKitView(modelName: "Paper")
+            left: SceneKitView(modelName: "Scissors-2"),
+            right: SceneKitView(modelName: "Paper")
         ),
         WinningConditions(
             result: .leftWins,
-            object1: SceneKitView(modelName: "Paper"),
-            object2: SceneKitView(modelName: "RockModel")
+            left: SceneKitView(modelName: "Paper"),
+            right: SceneKitView(modelName: "RockModel")
         ),
         WinningConditions(
             result: .rightWins,
-            object1: SceneKitView(modelName: "RockModel"),
-            object2: SceneKitView(modelName: "Scissors-2")
+            left: SceneKitView(modelName: "Scissors-2"),
+            right: SceneKitView(modelName: "RockModel")
         ),
         WinningConditions(
             result: .rightWins,
-            object1: SceneKitView(modelName: "RockModel"),
-            object2: SceneKitView(modelName: "Paper")
+            left: SceneKitView(modelName: "RockModel"),
+            right: SceneKitView(modelName: "Paper")
         ),
         WinningConditions(
             result: .rightWins,
-            object1: SceneKitView(modelName: "Scissors-2"),
-            object2: SceneKitView(modelName: "Paper")
+            left: SceneKitView(modelName: "Paper"),
+            right: SceneKitView(modelName: "Scissors-2")
         ),
         WinningConditions(
             result: .draw,
-            object1: SceneKitView(modelName: "RockModel"),
-            object2: SceneKitView(modelName: "RockModel")
+            left: SceneKitView(modelName: "RockModel"),
+            right: SceneKitView(modelName: "RockModel")
         ),
         WinningConditions(
             result: .draw,
-            object1: SceneKitView(modelName: "Scissors-2"),
-            object2: SceneKitView(modelName: "Scissors-2")
+            left: SceneKitView(modelName: "Scissors-2"),
+            right: SceneKitView(modelName: "Scissors-2")
         ),
         WinningConditions(
             result: .draw,
-            object1: SceneKitView(modelName: "Paper"),
-            object2: SceneKitView(modelName: "Paper")
+            left: SceneKitView(modelName: "Paper"),
+            right: SceneKitView(modelName: "Paper")
         )
     ]
     

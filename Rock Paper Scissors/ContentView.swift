@@ -16,20 +16,19 @@ enum GameResult: String, CaseIterable {
 
 struct ContentView: View {
     @State var isFinished : Bool = false
+    @State var isShow: Bool = false
+
     @State private var result: String = ""
     @State private var timerValue = 0
     @State var score = 0
     @State var round = 0
     @State var lastMS = 0
-    @State var winner: GameResult = .draw
-    @State var isShow: Bool = false
     @State var point : String = "+1"
     let sceneView = SCNView()
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     
     @State var winningCondition: WinningConditions? = nil
-    @State var randomSign: GameResult?
     
     var body: some View {
         if isFinished {
@@ -67,8 +66,8 @@ struct ContentView: View {
                             Spacer()
                             
                             HStack {
-                                self.winningCondition?.object1
-                                self.winningCondition?.object2
+                                self.winningCondition?.left
+                                self.winningCondition?.right
                             }
                             Spacer().frame(width: 50)
                         }
@@ -130,9 +129,6 @@ struct ContentView: View {
                 timerValue += 1
             }
             .onAppear {
-                winner = randomResult()
-            }
-            .onAppear {
                 startGame()
             }
             .background((!isShow) ? .white : .black)
@@ -143,23 +139,16 @@ struct ContentView: View {
         return "\(milliseconds)"
     }
     
-    func randomResult() -> GameResult{
-        let allResult = GameResult.allCases
-        let randomSign = allResult.randomElement()!
-        self.randomSign = randomSign
-        gettingAsset()
-        //        timer.connect().cancel()
-        //        timerValue = 0
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-        //
-        //            timer.connect()
-        //        }
-        return randomSign
+    func randomizeWinningCondition() {
+        let randomWinningCondition = winningConditionsLists.lists.randomElement()!
+        print("Correct answer:", randomWinningCondition.result,
+              "Left", randomWinningCondition.left,
+              "Right", randomWinningCondition.right
+        )
+        winningCondition = randomWinningCondition
     }
     
     func handleResultButtonPressed(userSelection: GameResult) {
-        let gameResult = winner
-        //        let gameResult = simulateHandAnimations()
         // score calculation
         if round >= 10 {
             // Game has finished
@@ -167,18 +156,13 @@ struct ContentView: View {
         } else {
             // Continue to the next round
             round += 1
-            winner = randomResult()
             lastMS = timerValue
 //            timerValue = 0
         }
         
-        if gameResult == userSelection {
+        if winningCondition?.result == userSelection {
             print("You won")
-        } else {
-            print("You lost")
-        }
-        switch (userSelection, gameResult) {
-        case (.leftWins, .leftWins), (.rightWins, .rightWins), (.draw, .draw):
+            
             if timerValue <= 300 {
                 score += 4
                 point = "+4"
@@ -188,19 +172,19 @@ struct ContentView: View {
                 point = "+1"
                
             }
-        default:
+        } else {
+            print("You lost")
             score -= 3
             point = "-3"
-          
         }
         
+        
         timerValue = 0
-        winner = randomResult()
+        randomizeWinningCondition()
         
         isShow = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 1){
             self.isShow = false
-            gettingAsset()
             timerValue = 0
         }
         
@@ -211,20 +195,9 @@ struct ContentView: View {
     //        return assetMapping[randomChoice] ?? ""
     //    }
     
-    func gettingAsset() {
-        var chosenWinningCondition: [WinningConditions] = []
-        for winningCondition in winningConditionsLists.lists {
-            if winningCondition.result == self.randomSign {
-                chosenWinningCondition.append(winningCondition)
-            }
-        }
-        chosenWinningCondition.shuffle()
-        self.winningCondition = chosenWinningCondition.first
-    }
-    
     func startGame() {
         round = 1
-        winner = randomResult()
+        randomizeWinningCondition()
         timerValue = 0
     }
     func finishGame() {
