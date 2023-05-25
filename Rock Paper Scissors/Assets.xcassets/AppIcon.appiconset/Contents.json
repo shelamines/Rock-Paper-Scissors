@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "rock-paper-scissors.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

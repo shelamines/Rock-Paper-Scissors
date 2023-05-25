@@ -11,6 +11,14 @@
 		5307294A2A17B41B00DB1AA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530729492A17B41B00DB1AA7 /* ContentView.swift */; };
 		5307294C2A17B41B00DB1AA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5307294B2A17B41B00DB1AA7 /* Assets.xcassets */; };
 		5307294F2A17B41B00DB1AA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5307294E2A17B41B00DB1AA7 /* Preview Assets.xcassets */; };
+		530729562A1B7C2500DB1AA7 /* Winning Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530729552A1B7C2500DB1AA7 /* Winning Condition.swift */; };
+		5307295C2A1CBB7F00DB1AA7 /* SceneKitAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5307295B2A1CBB7F00DB1AA7 /* SceneKitAssets.swift */; };
+		5307295E2A1CBD5B00DB1AA7 /* RockModel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 5307295D2A1CBD5B00DB1AA7 /* RockModel.usdz */; };
+		530729602A1CBDDC00DB1AA7 /* Paper.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 5307295F2A1CBDDC00DB1AA7 /* Paper.usdz */; };
+		530729642A1CC24900DB1AA7 /* SceneKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530729632A1CC24900DB1AA7 /* SceneKitView.swift */; };
+		530729682A1CD05B00DB1AA7 /* Scissors.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 530729672A1CD05B00DB1AA7 /* Scissors.usdz */; };
+		5307296C2A1DFB0C00DB1AA7 /* scoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5307296B2A1DFB0C00DB1AA7 /* scoreView.swift */; };
+		530729702A1DFCEF00DB1AA7 /* Scissors-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 5307296F2A1DFCEF00DB1AA7 /* Scissors-2.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +27,14 @@
 		530729492A17B41B00DB1AA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5307294B2A17B41B00DB1AA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5307294E2A17B41B00DB1AA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		530729552A1B7C2500DB1AA7 /* Winning Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Winning Condition.swift"; sourceTree = "<group>"; };
+		5307295B2A1CBB7F00DB1AA7 /* SceneKitAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitAssets.swift; sourceTree = "<group>"; };
+		5307295D2A1CBD5B00DB1AA7 /* RockModel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = RockModel.usdz; path = ../../../Downloads/RockModel.usdz; sourceTree = "<group>"; };
+		5307295F2A1CBDDC00DB1AA7 /* Paper.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Paper.usdz; path = ../../../Downloads/Paper.usdz; sourceTree = "<group>"; };
+		530729632A1CC24900DB1AA7 /* SceneKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitView.swift; sourceTree = "<group>"; };
+		530729672A1CD05B00DB1AA7 /* Scissors.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Scissors.usdz; path = ../../../Downloads/Scissors.usdz; sourceTree = "<group>"; };
+		5307296B2A1DFB0C00DB1AA7 /* scoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scoreView.swift; sourceTree = "<group>"; };
+		5307296F2A1DFCEF00DB1AA7 /* Scissors-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = "Scissors-2.usdz"; path = "../../../Downloads/Scissors-2.usdz"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,9 +68,17 @@
 			isa = PBXGroup;
 			children = (
 				530729472A17B41B00DB1AA7 /* Rock_Paper_ScissorsApp.swift */,
+				5307295B2A1CBB7F00DB1AA7 /* SceneKitAssets.swift */,
+				5307296B2A1DFB0C00DB1AA7 /* scoreView.swift */,
+				5307295D2A1CBD5B00DB1AA7 /* RockModel.usdz */,
+				530729672A1CD05B00DB1AA7 /* Scissors.usdz */,
+				5307296F2A1DFCEF00DB1AA7 /* Scissors-2.usdz */,
+				5307295F2A1CBDDC00DB1AA7 /* Paper.usdz */,
 				530729492A17B41B00DB1AA7 /* ContentView.swift */,
+				530729632A1CC24900DB1AA7 /* SceneKitView.swift */,
 				5307294B2A17B41B00DB1AA7 /* Assets.xcassets */,
 				5307294D2A17B41B00DB1AA7 /* Preview Content */,
+				530729552A1B7C2500DB1AA7 /* Winning Condition.swift */,
 			);
 			path = "Rock Paper Scissors";
 			sourceTree = "<group>";
@@ -125,7 +149,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530729702A1DFCEF00DB1AA7 /* Scissors-2.usdz in Resources */,
+				530729602A1CBDDC00DB1AA7 /* Paper.usdz in Resources */,
+				530729682A1CD05B00DB1AA7 /* Scissors.usdz in Resources */,
 				5307294F2A17B41B00DB1AA7 /* Preview Assets.xcassets in Resources */,
+				5307295E2A1CBD5B00DB1AA7 /* RockModel.usdz in Resources */,
 				5307294C2A17B41B00DB1AA7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,8 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5307295C2A1CBB7F00DB1AA7 /* SceneKitAssets.swift in Sources */,
+				530729562A1B7C2500DB1AA7 /* Winning Condition.swift in Sources */,
 				5307294A2A17B41B00DB1AA7 /* ContentView.swift in Sources */,
+				5307296C2A1DFB0C00DB1AA7 /* scoreView.swift in Sources */,
 				530729482A17B41B00DB1AA7 /* Rock_Paper_ScissorsApp.swift in Sources */,
+				530729642A1CC24900DB1AA7 /* SceneKitView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
